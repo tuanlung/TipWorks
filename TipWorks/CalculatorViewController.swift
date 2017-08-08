@@ -12,6 +12,7 @@ class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var numbersView: UIView!
     @IBOutlet weak var billTextField: UITextField!
+    @IBOutlet weak var splitTableView: UITableView!
 
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
@@ -33,6 +34,7 @@ class CalculatorViewController: UIViewController {
     
     func initializePositionOfAllViews() {
         initializeNumberViewFrame()
+        initializeSplitTableViewFrame()
         initializeBillTextFieldFrame(animated: true)
     }
     
@@ -48,6 +50,12 @@ class CalculatorViewController: UIViewController {
         initializePositionFactors()
         initializePositionOfAllViews()
     }
+    
+    // MARK: IBActions
+    @IBAction func resignKeyboard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
 }
 
 extension CalculatorViewController {
@@ -72,6 +80,12 @@ extension CalculatorViewController {
         } else {
             self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
         }
+    }
+    
+    func initializeSplitTableViewFrame() {
+        let newMinY = keyboardMinY - view.frame.minY
+        let newHeight = view.frame.maxY - newMinY
+        self.splitTableView.frame = CGRect(x: 0.0, y: newMinY, width: view.frame.width, height: newHeight)
     }
 
     
