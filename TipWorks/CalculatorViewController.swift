@@ -31,7 +31,7 @@ class CalculatorViewController: UIViewController {
     
     func initializePositionOfAllViews() {
         initializeNumberViewFrame()
-        //initializeBillTextField()
+        initializeBillTextFieldFrame(animated: true)
     }
     
     // MARK: call back functions
@@ -59,6 +59,19 @@ extension CalculatorViewController {
         let newHeight = keyboardMinY - navigationBarMaxY
         numbersView.frame = CGRect(x: 0.0, y: navigationBarMaxY, width: view.frame.width, height: newHeight)
     }
+    
+    func initializeBillTextFieldFrame(animated: Bool) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+            })
+            
+        } else {
+            self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+        }
+    }
+
     
     // MARK: Keyboard events functions
     func subscribeToKeyboardEvents() {

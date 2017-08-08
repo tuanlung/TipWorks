@@ -22,11 +22,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwr-OT-LTM" userLabel="Numbers View">
-                                <rect key="frame" x="0.0" y="0.0" width="327" height="329"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="489"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-uD-1mk" userLabel="Bill Text Field">
-                                        <rect key="frame" x="0.0" y="60" width="275" height="225"/>
+                                        <rect key="frame" x="0.0" y="60" width="326" height="370"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.33239978149999999" green="1" blue="0.9417966646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <attributedString key="attributedText">
