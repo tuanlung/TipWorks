@@ -30,29 +30,42 @@ class CalculatorViewController: UIViewController {
     
     
     func initializePositionOfAllViews() {
-        let newHeight = keyboardMinY - navigationBarMaxY
-        numbersView.frame = CGRect(x: 0.0, y: navigationBarMaxY, width: view.frame.width, height: newHeight)
-        print("numbersView scaled to \(numbersView.frame)")
+        initializeNumberViewFrame()
+        //initializeBillTextField()
     }
-
-    func subscribeToKeyboardEvents() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: .UIKeyboardDidShow , object: nil)
-    }
-    
-    func initializePositionFactors() {
-        navigationBarMaxY = view.frame.minY + navigationController!.navigationBar.frame.height
-    }
-    
     
     // MARK: call back functions
     func keyboardDidShow(_ notification: NSNotification) {
         
         self.keyboardMinY = view.frame.height - (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
         
+        // Unsubscribe once we got keyboard position
+        unsubscribeToKeyboardEvents()
+        
+        // View Positions are depending on keyboard positons, that's why they are here
         initializePositionFactors()
         initializePositionOfAllViews()
-        
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
     }
 }
 
+extension CalculatorViewController {
+    
+    // View positions helpers
+    func initializePositionFactors() {
+        navigationBarMaxY = view.frame.minY + navigationController!.navigationBar.frame.height
+    }
+    
+    func initializeNumberViewFrame() {
+        let newHeight = keyboardMinY - navigationBarMaxY
+        numbersView.frame = CGRect(x: 0.0, y: navigationBarMaxY, width: view.frame.width, height: newHeight)
+    }
+    
+    // MARK: Keyboard events functions
+    func subscribeToKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: .UIKeyboardDidShow , object: nil)
+    }
+    
+    func unsubscribeToKeyboardEvents() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
+    }
+}
