@@ -21,10 +21,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwr-OT-LTM">
-                                <rect key="frame" x="0.0" y="0.0" width="218" height="101"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwr-OT-LTM" userLabel="Numbers View">
+                                <rect key="frame" x="0.0" y="0.0" width="327" height="329"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-uD-1mk" userLabel="Bill Text Field">
+                                        <rect key="frame" x="0.0" y="60" width="275" height="225"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.33239978149999999" green="1" blue="0.9417966646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="$">
+                                                <attributes>
+                                                    <font key="NSFont" size="64" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -33,10 +49,14 @@
                         <barButtonItem key="leftBarButtonItem" image="History" id="Lrf-pm-7dM"/>
                         <barButtonItem key="rightBarButtonItem" image="Settings" id="HTa-SW-aa2"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="billTextField" destination="Lhd-uD-1mk" id="u0C-F1-UmB"/>
+                        <outlet property="numbersView" destination="Uwr-OT-LTM" id="ih1-U4-BHW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="960.79999999999995" y="780.35982008995506"/>
+            <point key="canvasLocation" x="917.60000000000002" y="781.25937031484261"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gEs-qM-EvH">
