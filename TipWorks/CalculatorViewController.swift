@@ -22,9 +22,11 @@ class CalculatorViewController: UIViewController {
         subscribeToKeyboardEvents()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        // This has to be put in viewDidAppear to avoid a bug in textField cursor position
+        // Details: https://stackoverflow.com/a/29857516
         billTextField.becomeFirstResponder()        
     }
     
