@@ -8,11 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // make bill text field first responder
+        // getKeyboardMinY
+        // initializePositionOfAllViews
+
     }
 
     override func didReceiveMemoryWarning() {
