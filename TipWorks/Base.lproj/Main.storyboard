@@ -43,6 +43,72 @@
                                             <action selector="billValueChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="j38-Q1-Xdh"/>
                                         </connections>
                                     </textField>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0L-r3-GMv" userLabel="Tip View">
+                                        <rect key="frame" x="0.0" y="381" width="414" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DH-mb-eWg" userLabel="Tip Title Label">
+                                                <rect key="frame" x="27" y="23" width="42" height="75"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="+">
+                                                        <attributes>
+                                                            <font key="NSFont" size="36" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-SO-9YG" userLabel="Tip Value Label">
+                                                <rect key="frame" x="277" y="8" width="129" height="112"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="$0.00">
+                                                        <attributes>
+                                                            <font key="NSFont" size="36" name=".SFNSText"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.44831332369999999" blue="0.96393816239999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VfH-TK-owD" userLabel="Total View">
+                                        <rect key="frame" x="0.0" y="503" width="414" height="99"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8E-ec-oul" userLabel="Total Value Label">
+                                                <rect key="frame" x="288" y="21" width="118" height="56"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="$0.00">
+                                                        <attributes>
+                                                            <font key="NSFont" size="36" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-sY-swj" userLabel="Total Title Label">
+                                                <rect key="frame" x="8" y="21" width="91" height="56"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Total">
+                                                        <attributes>
+                                                            <font key="NSFont" size="36" name=".SFNSText"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -124,6 +190,12 @@
                         <outlet property="splitTableView" destination="B6E-9d-8OH" id="H7g-t6-vzz"/>
                         <outlet property="tipPercSegControl" destination="XEP-0b-yIc" id="goD-Mq-DsQ"/>
                         <outlet property="tipPercView" destination="HqP-4d-nkv" id="FhT-nf-2pB"/>
+                        <outlet property="tipTitleLabel" destination="1DH-mb-eWg" id="JKi-03-9o1"/>
+                        <outlet property="tipValueLabel" destination="Icl-SO-9YG" id="M44-VF-8DF"/>
+                        <outlet property="tipView" destination="g0L-r3-GMv" id="cOe-ym-GTh"/>
+                        <outlet property="totalTitleLabel" destination="Vc8-sY-swj" id="B5B-XE-J6J"/>
+                        <outlet property="totalValueLabel" destination="t8E-ec-oul" id="wTv-Em-rrt"/>
+                        <outlet property="totalView" destination="VfH-TK-owD" id="4yv-eE-khX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
