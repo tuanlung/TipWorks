@@ -117,10 +117,9 @@ extension CalculatorViewController {
         let height = numbersView.frame.height * totalViewHeightRatio
         let animateDuration = 0.4
         
-        let spaceToLeft: CGFloat = 25.0
-        let spaceToRight: CGFloat = 25.0
-        let spaceInBetween: CGFloat = 25.0
-
+        let spaceToLeft: CGFloat = 20.0
+        let spaceToRight: CGFloat = 0.0
+        let spaceInBetween: CGFloat = 10.0
         
         if animated {
             
