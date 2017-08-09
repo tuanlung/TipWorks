@@ -13,11 +13,14 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var numbersView: UIView!
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet weak var splitTableView: UITableView!
+    @IBOutlet weak var tipPercView: UIView!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var tipPercSegControl: UISegmentedControl!
     
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
-    var doneButtonHeight: CGFloat = 40.0
+    var tipPercViewHeight: CGFloat = 40.0
+    var doneButtonWidth: CGFloat = 60.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,19 +48,20 @@ class CalculatorViewController: UIViewController {
         doneButton.isHidden = true
         billTextField.isHidden = true
         splitTableView.isHidden = true
+        tipPercSegControl.isHidden = true
+        tipPercView.isHidden = true
     }
     
     func initializePositionOfAllViews() {
-        initializeNumberViewFrame()
         initializeSplitTableViewFrame()
-        initializeBillTextFieldFrame(animated: true)
-        initializeDoneButtonFrame()
+        initializeTipPercViewFrame()
+        initializeNumberViewFrame()
     }
     
     // MARK: call back functions
     func keyboardDidShow(_ notification: NSNotification) {
         
-        self.keyboardMinY = view.frame.height - (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+        keyboardMinY = view.frame.height - (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
         
         // Unsubscribe once we got keyboard position
         unsubscribeToKeyboardEvents()
@@ -70,11 +74,19 @@ class CalculatorViewController: UIViewController {
     // MARK: IBActions
     @IBAction func resignKeyboard(_ sender: Any) {
         view.endEditing(true)
-        self.doneButton.isHidden = true
+        moveTipPercSegControl(direction: .Right, animated: true)
+        doneButton.isHidden = true
     }
     
     @IBAction func billValueChanged(_ sender: Any) {
         adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
+    }
+    
+    
+    @IBAction func billTextFieldEditDidBegin(_ sender: Any) {
+        if billHasValue() {
+            adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
+        }
     }
 }
 
@@ -82,21 +94,23 @@ extension CalculatorViewController {
     
     // MARK: View positions adjustment helpers
     func adjustPositionsOfViewsAfterBillValueDidChange(animated: Bool) {
+
+        moveTipPercSegControl(direction: .Left, animated: true)
+        doneButton.isHidden = false
+    }
+    
+    func moveTipPercSegControl(direction: Direction, animated: Bool) {
         let animateDuration = 0.4
+        let spaceOnLeft = (direction == .Left) ? self.doneButton.frame.width : 0.0
         
         if animated {
             UIView.animate(withDuration: animateDuration, animations: {
-                self.numbersView.frame = CGRect(x: 0.0, y: self.navigationBarMaxY, width: self.view.frame.width, height: self.keyboardMinY - self.navigationBarMaxY - self.doneButtonHeight)
-                
-                self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+                self.tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: self.tipPercView.frame.width - spaceOnLeft, height: self.tipPercView.frame.height)
             })
-            self.doneButton.isHidden = false
+            
+        } else {
+            tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: tipPercView.frame.width - spaceOnLeft, height: tipPercView.frame.height)
         }
-        
-        
-        
-        
-        
     }
     
     
@@ -106,12 +120,45 @@ extension CalculatorViewController {
         navigationBarMaxY = navigationController!.navigationBar.frame.height
     }
     
+    func initializeSplitTableViewFrame() {
+        let newMinY = keyboardMinY - view.frame.minY
+        let newHeight = view.frame.maxY - newMinY
+        splitTableView.frame = CGRect(x: 0.0, y: newMinY, width: view.frame.width, height: newHeight)
+        
+        splitTableView.isHidden = false
+    }
+    
+    func initializeTipPercViewFrame() {
+        tipPercView.frame = CGRect(x: 0.0, y: keyboardMinY - tipPercViewHeight, width: view.frame.width, height: tipPercViewHeight)
+        
+        initializeDoneButtonFrame()
+        initializeTipPercSegControlFrame()
+        
+        tipPercView.isHidden = false
+    }
+    
     func initializeNumberViewFrame() {
-        let newHeight = keyboardMinY - navigationBarMaxY
+        let newHeight = tipPercView.frame.minY - navigationBarMaxY
+        
         numbersView.frame = CGRect(x: 0.0, y: navigationBarMaxY, width: view.frame.width, height: newHeight)
+        
+        initializeBillTextFieldFrame(animated: true)
         
         numbersView.isHidden = false
     }
+    
+    func initializeDoneButtonFrame() {
+        
+        doneButton.frame = CGRect(x: tipPercView.frame.width - doneButtonWidth, y: 0.0, width: doneButtonWidth, height: tipPercView.frame.height)
+    }
+    
+    func initializeTipPercSegControlFrame() {
+        tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: tipPercView.frame.width, height: tipPercView.frame.height)
+        tipPercSegControl.isHidden = false
+    }
+    
+    
+
     
     func initializeBillTextFieldFrame(animated: Bool) {
 
@@ -119,7 +166,7 @@ extension CalculatorViewController {
         if animated {
             let animateDistance: CGFloat = 40.0
             let animateDuration = 0.4
-            self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width - animateDistance, height: self.numbersView.frame.height)
+            billTextField.frame = CGRect(x: 0.0, y: 0.0, width: numbersView.frame.width - animateDistance, height: numbersView.frame.height)
             
             billTextField.isHidden = false
             
@@ -128,24 +175,21 @@ extension CalculatorViewController {
             })
             
         } else {
-            self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+            billTextField.frame = CGRect(x: 0.0, y: 0.0, width: numbersView.frame.width, height: numbersView.frame.height)
             billTextField.isHidden = false
         }
     }
     
-    func initializeSplitTableViewFrame() {
-        let newMinY = keyboardMinY - view.frame.minY
-        let newHeight = view.frame.maxY - newMinY
-        self.splitTableView.frame = CGRect(x: 0.0, y: newMinY, width: view.frame.width, height: newHeight)
-        
-        splitTableView.isHidden = false
+
+    // MARK: Bill Text Value
+    func billHasValue() -> Bool {
+        if let text = billTextField.text {
+            return text != "$"
+        } else {
+            return false
+        }
     }
 
-    func initializeDoneButtonFrame() {
-        let buttonMinY = self.numbersView.frame.height
-        
-        self.doneButton.frame = CGRect(x: 0.0, y: buttonMinY, width: self.view.frame.width, height: doneButtonHeight)
-    }
     
     // MARK: Keyboard events functions
     func subscribeToKeyboardEvents() {
@@ -155,4 +199,8 @@ extension CalculatorViewController {
     func unsubscribeToKeyboardEvents() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
     }
+}
+
+enum Direction {
+    case Left, Right
 }

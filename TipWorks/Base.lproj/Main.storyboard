@@ -39,6 +39,7 @@
                                         </attributedString>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                         <connections>
+                                            <action selector="billTextFieldEditDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="Eb1-MF-rZr"/>
                                             <action selector="billValueChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="j38-Q1-Xdh"/>
                                         </connections>
                                     </textField>
@@ -70,25 +71,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csb-J9-jyQ" userLabel="Done Button">
-                                <rect key="frame" x="0.0" y="610" width="389" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-4d-nkv" userLabel="Tip Percentage View">
+                                <rect key="frame" x="0.0" y="610" width="414" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.44831332369999999" blue="0.96393816239999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Done                       ">
-                                            <attributes>
-                                                <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <action selector="resignKeyboard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nvj-We-JLP"/>
-                                </connections>
-                            </button>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XEP-0b-yIc" userLabel="Tip Percentage Options">
+                                        <rect key="frame" x="40" y="0.0" width="280" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="18%"/>
+                                            <segment title="20%"/>
+                                            <segment title="25%"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csb-J9-jyQ" userLabel="Done Button">
+                                        <rect key="frame" x="343" y="0.0" width="60" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.44831332369999999" blue="0.96393816239999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Done                       ">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="resignKeyboard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nvj-We-JLP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98135008790256517" green="1" blue="0.22159143558007199" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -105,6 +122,8 @@
                         <outlet property="doneButton" destination="csb-J9-jyQ" id="z80-9u-4Vy"/>
                         <outlet property="numbersView" destination="Uwr-OT-LTM" id="ih1-U4-BHW"/>
                         <outlet property="splitTableView" destination="B6E-9d-8OH" id="H7g-t6-vzz"/>
+                        <outlet property="tipPercSegControl" destination="XEP-0b-yIc" id="goD-Mq-DsQ"/>
+                        <outlet property="tipPercView" destination="HqP-4d-nkv" id="FhT-nf-2pB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
