@@ -22,11 +22,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwr-OT-LTM" userLabel="Numbers View">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="564"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-uD-1mk" userLabel="Bill Text Field">
-                                        <rect key="frame" x="0.0" y="0.0" width="326" height="386"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="389" height="710"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.33239978149999999" green="1" blue="0.9417966646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <attributedString key="attributedText">
@@ -38,11 +38,25 @@
                                             </fragment>
                                         </attributedString>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <action selector="billValueChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="j38-Q1-Xdh"/>
+                                        </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-J9-jyQ">
-                                        <rect key="frame" x="56" y="83" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csb-J9-jyQ" userLabel="Done Button">
+                                        <rect key="frame" x="56" y="83" width="135" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                        <color key="backgroundColor" red="1" green="0.44831332369999999" blue="0.96393816239999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Done                       ">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
                                         <connections>
                                             <action selector="resignKeyboard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nvj-We-JLP"/>
                                         </connections>
@@ -80,10 +94,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="TipWorks" id="84o-pT-Qcm">
                         <barButtonItem key="leftBarButtonItem" image="History" id="Lrf-pm-7dM"/>
-                        <barButtonItem key="rightBarButtonItem" image="Settings" id="HTa-SW-aa2"/>
+                        <barButtonItem key="rightBarButtonItem" image="Settings" id="HTa-SW-aa2">
+                            <connections>
+                                <action selector="resignKeyboard:" destination="BYZ-38-t0r" id="dZE-2k-SIu"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="billTextField" destination="Lhd-uD-1mk" id="u0C-F1-UmB"/>
+                        <outlet property="doneButton" destination="csb-J9-jyQ" id="z80-9u-4Vy"/>
                         <outlet property="numbersView" destination="Uwr-OT-LTM" id="ih1-U4-BHW"/>
                         <outlet property="splitTableView" destination="B6E-9d-8OH" id="H7g-t6-vzz"/>
                     </connections>
