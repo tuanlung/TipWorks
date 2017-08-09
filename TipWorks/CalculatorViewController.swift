@@ -17,6 +17,7 @@ class CalculatorViewController: UIViewController {
     
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
+    var doneButtonHeight: CGFloat = 40.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,15 +74,36 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func billValueChanged(_ sender: Any) {
-        self.doneButton.isHidden = false
+        adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
     }
 }
 
 extension CalculatorViewController {
     
-    // View positions helpers
+    // MARK: View positions adjustment helpers
+    func adjustPositionsOfViewsAfterBillValueDidChange(animated: Bool) {
+        let animateDuration = 0.4
+        
+        if animated {
+            UIView.animate(withDuration: animateDuration, animations: {
+                self.numbersView.frame = CGRect(x: 0.0, y: self.navigationBarMaxY, width: self.view.frame.width, height: self.keyboardMinY - self.navigationBarMaxY - self.doneButtonHeight)
+                
+                self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+            })
+            self.doneButton.isHidden = false
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    // MARK: View positions initializers
     func initializePositionFactors() {
-        navigationBarMaxY = view.frame.minY + navigationController!.navigationBar.frame.height
+        navigationBarMaxY = navigationController!.navigationBar.frame.height
     }
     
     func initializeNumberViewFrame() {
@@ -92,15 +114,22 @@ extension CalculatorViewController {
     }
     
     func initializeBillTextFieldFrame(animated: Bool) {
-        billTextField.isHidden = false
+
         
         if animated {
-            UIView.animate(withDuration: 0.4, animations: {
+            let animateDistance: CGFloat = 40.0
+            let animateDuration = 0.4
+            self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width - animateDistance, height: self.numbersView.frame.height)
+            
+            billTextField.isHidden = false
+            
+            UIView.animate(withDuration: animateDuration, animations: {
                 self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
             })
             
         } else {
             self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.numbersView.frame.width, height: self.numbersView.frame.height)
+            billTextField.isHidden = false
         }
     }
     
@@ -113,8 +142,7 @@ extension CalculatorViewController {
     }
 
     func initializeDoneButtonFrame() {
-        let doneButtonHeight: CGFloat = 40.0
-        let buttonMinY = self.numbersView.frame.height - doneButtonHeight
+        let buttonMinY = self.numbersView.frame.height
         
         self.doneButton.frame = CGRect(x: 0.0, y: buttonMinY, width: self.view.frame.width, height: doneButtonHeight)
     }
