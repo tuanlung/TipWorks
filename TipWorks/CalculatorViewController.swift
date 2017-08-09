@@ -110,7 +110,7 @@ extension CalculatorViewController {
         moveTipPercSegControl(direction: .Left, animated: true)
         doneButton.isHidden = false
         expandTotalViewFrame(animated: true)
-
+        expandTipViewFrame(animated: true)
     }
     
     func expandTotalViewFrame(animated: Bool) {
@@ -123,7 +123,7 @@ extension CalculatorViewController {
         
         if animated {
             
-            self.totalView.isHidden = false
+            totalView.isHidden = false
             
             UIView.animate(withDuration: animateDuration, animations: {
                 self.totalView.frame = CGRect(x: 0.0, y: self.numbersView.frame.height - height, width: self.numbersView.frame.width, height: height)
@@ -141,6 +141,36 @@ extension CalculatorViewController {
         totalValueLabel.frame = CGRect(x: totalTitleLabel.frame.maxX + spaceInBetween, y: 0.0, width: totalView.frame.width - spaceToRight - totalTitleLabel.frame.maxX - spaceInBetween, height: totalView.frame.height)
     }
     
+    func expandTipViewFrame(animated: Bool) {
+        let height = numbersView.frame.height * tipViewHeightRatio
+        let billTextFieldMaxY = numbersView.frame.height - totalView.frame.height - height
+        
+        let animateDuration = 0.4
+        
+        let spaceToLeft: CGFloat = 20.0
+        let spaceToRight: CGFloat = 0.0
+        let spaceInBetween: CGFloat = 10.0
+        
+        if animated {
+            
+            tipView.isHidden = false
+            
+            UIView.animate(withDuration: animateDuration, animations: {
+                self.tipView.frame = CGRect(x: 0.0, y: billTextFieldMaxY, width: self.numbersView.frame.width, height: height)
+                self.billTextField.frame = CGRect(x: 0.0, y: 0.0, width: self.billTextField.frame.width, height: billTextFieldMaxY)
+            });
+            
+        } else {
+            tipView.frame = CGRect(x: 0.0, y: billTextFieldMaxY, width: numbersView.frame.width, height: height)
+            billTextField.frame = CGRect(x: 0.0, y: 0.0, width: billTextField.frame.width, height: billTextFieldMaxY)
+            
+            tipView.isHidden = false
+        }
+        
+        tipTitleLabel.frame = CGRect(x: spaceToLeft, y: 0.0, width: tipTitleLabel.frame.width, height: tipView.frame.height)
+        tipValueLabel.frame = CGRect(x: tipTitleLabel.frame.maxX + spaceInBetween, y: 0.0, width: tipView.frame.width - spaceToRight - tipTitleLabel.frame.maxX - spaceInBetween, height: tipView.frame.height)
+    }
+
     
     
     func moveTipPercSegControl(direction: Direction, animated: Bool) {
@@ -187,6 +217,7 @@ extension CalculatorViewController {
         numbersView.frame = CGRect(x: 0.0, y: navigationBarMaxY, width: view.frame.width, height: newHeight)
         
         initializeTotalViewFrame()
+        initializeTipViewFrame()
         initializeBillTextFieldFrame(animated: true)
         
         numbersView.isHidden = false
@@ -197,7 +228,7 @@ extension CalculatorViewController {
     }
     
     func initializeTipViewFrame() {
-        //tipView.frame = CGRect(x: )
+        tipView.frame = CGRect(x: 0.0, y: numbersView.frame.maxY, width: numbersView.frame.width, height: 0.0)
     }
     
     
