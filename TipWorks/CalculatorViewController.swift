@@ -117,6 +117,11 @@ extension CalculatorViewController {
         let height = numbersView.frame.height * totalViewHeightRatio
         let animateDuration = 0.4
         
+        let spaceToLeft: CGFloat = 25.0
+        let spaceToRight: CGFloat = 25.0
+        let spaceInBetween: CGFloat = 25.0
+
+        
         if animated {
             
             self.totalView.isHidden = false
@@ -132,6 +137,9 @@ extension CalculatorViewController {
             
             totalView.isHidden = false
         }
+        
+        totalTitleLabel.frame = CGRect(x: spaceToLeft, y: 0.0, width: totalTitleLabel.frame.width, height: totalView.frame.height)
+        totalValueLabel.frame = CGRect(x: totalTitleLabel.frame.maxX + spaceInBetween, y: 0.0, width: totalView.frame.width - spaceToRight - totalTitleLabel.frame.maxX - spaceInBetween, height: totalView.frame.height)
     }
     
     
@@ -190,7 +198,7 @@ extension CalculatorViewController {
     }
     
     func initializeTipViewFrame() {
-        
+        //tipView.frame = CGRect(x: )
     }
     
     
