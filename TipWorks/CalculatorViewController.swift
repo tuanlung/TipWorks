@@ -68,7 +68,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
         
         cell.textLabel!.text = "haha"
-        cell.detailTextLabel!.text = "haha2"
+        cell.detailTextLabel!.text = totalValueLabel.text
         return cell
     }
     
@@ -117,18 +117,21 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func updateNumbers(_ billNumberStr: String) {
         let bill = Double(billNumberStr)
-        
-        
-        
-        
-        
-        
-        
+        let tipPerc = 0.18
+
         if let bill = bill {
-            totalValueLabel.text = "$" + String.init(format: "%.2f", bill)
+            let tipInPenny: Double = round(bill * tipPerc * 100.0)
+            let tip: Double = tipInPenny / 100.0
+            let total: Double = bill + tip
+        
+            tipValueLabel.text = "$" + String.init(format: "%.2f", tip)
+            totalValueLabel.text = "$" + String.init(format: "%.2f", total)
         } else {
+            tipValueLabel.text = "$0.00"
             totalValueLabel.text = "$0.00"
         }
+        
+        splitTableView.reloadData()
     }
     
     
