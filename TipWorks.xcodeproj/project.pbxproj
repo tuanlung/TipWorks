@@ -302,6 +302,7 @@
 				FC6BCA261F3A3B9900E51AAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

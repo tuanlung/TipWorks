@@ -117,7 +117,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.057108583390000002" green="0.72336632010000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="db9-Ry-Odi" style="IBUITableViewCellStyleDefault" id="LO0-Rd-29w" userLabel="Split Table View Cell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="splitTableViewCell" textLabel="db9-Ry-Odi" detailTextLabel="r9F-14-YIZ" style="IBUITableViewCellStyleValue1" id="LO0-Rd-29w" userLabel="Split Table View Cell">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LO0-Rd-29w" id="eFd-C6-RrO">
@@ -125,7 +125,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="db9-Ry-Odi">
-                                                    <rect key="frame" x="15" y="0.0" width="384" height="43"/>
+                                                    <rect key="frame" x="15" y="11" width="33" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r9F-14-YIZ">
+                                                    <rect key="frame" x="355" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -136,6 +143,10 @@
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="agr-0E-YEf"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="W3K-Z5-4iv"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-4d-nkv" userLabel="Tip Percentage View">
                                 <rect key="frame" x="0.0" y="610" width="414" height="30"/>
@@ -187,7 +198,7 @@
                         <outlet property="billTextField" destination="Lhd-uD-1mk" id="u0C-F1-UmB"/>
                         <outlet property="doneButton" destination="csb-J9-jyQ" id="z80-9u-4Vy"/>
                         <outlet property="numbersView" destination="Uwr-OT-LTM" id="ih1-U4-BHW"/>
-                        <outlet property="splitTableView" destination="B6E-9d-8OH" id="H7g-t6-vzz"/>
+                        <outlet property="splitTableView" destination="B6E-9d-8OH" id="EOw-2t-vGI"/>
                         <outlet property="tipPercSegControl" destination="XEP-0b-yIc" id="goD-Mq-DsQ"/>
                         <outlet property="tipPercView" destination="HqP-4d-nkv" id="FhT-nf-2pB"/>
                         <outlet property="tipTitleLabel" destination="1DH-mb-eWg" id="JKi-03-9o1"/>

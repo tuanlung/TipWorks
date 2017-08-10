@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalculatorViewController: UIViewController {
+class CalculatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var numbersView: UIView!
     @IBOutlet weak var billTextField: UITextField!
@@ -30,8 +30,10 @@ class CalculatorViewController: UIViewController {
     var billTextFieldHeightRaito: CGFloat = 0.5
     var tipViewHeightRatio: CGFloat = 0.25
     var totalViewHeightRatio: CGFloat = 0.25
+    var maxNumOfSplit = 10
     
     
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,11 +41,10 @@ class CalculatorViewController: UIViewController {
         // make everything hidden and change their position after view appears,
         // and then make them visible.
         hideAllObjects()
-
-        
         
         subscribeToKeyboardEvents()
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -51,6 +52,25 @@ class CalculatorViewController: UIViewController {
         // This has to be put in viewDidAppear to avoid a bug in textField cursor position
         // Details: https://stackoverflow.com/a/29857516
         billTextField.becomeFirstResponder()
+    }
+    
+    
+    // MARK: table view delegate functions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return maxNumOfSplit
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
+        
+        cell.textLabel!.text = "haha"
+        cell.detailTextLabel!.text = "haha2"
+        return cell
     }
     
     func hideAllObjects() {
