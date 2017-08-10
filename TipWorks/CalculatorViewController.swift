@@ -31,6 +31,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     var tipViewHeightRatio: CGFloat = 0.25
     var totalViewHeightRatio: CGFloat = 0.25
     var maxNumOfSplit = 10
+    var tipPercOptionsMapping = [0.18, 0.20, 0.25]
     
     
     // MARK: Life cycle
@@ -82,6 +83,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: textField delegate functions
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.text = "$"
+        updateNumbers()
         return true
     }
     
@@ -122,9 +124,14 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         return true
     }
     
+    func updateNumbers() {
+        let billNumberStr = billTextField.text!.replacingOccurrences(of: "$", with: "")
+        updateNumbers(billNumberStr)
+    }
+    
     func updateNumbers(_ billNumberStr: String) {
         let bill = Double(billNumberStr)
-        let tipPerc = 0.18
+        let tipPerc = tipPercOptionsMapping[tipPercSegControl.selectedSegmentIndex]
 
         if let bill = bill {
             let tipInPenny: Double = round(bill * tipPerc * 100.0)
@@ -203,6 +210,11 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
             adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
         }
     }
+    
+    
+    @IBAction func tipPercSegControlValueDidChange(_ sender: Any) {
+        updateNumbers()
+    }
 }
 
 extension CalculatorViewController {
@@ -270,7 +282,7 @@ extension CalculatorViewController {
             tipView.isHidden = false
         }
         
-        tipTitleLabel.frame = CGRect(x: spaceToLeft, y: 0.0, width: tipTitleLabel.frame.width, height: tipView.frame.height)
+        tipTitleLabel.frame = CGRect(x: spaceToLeft, y: 0.0, width: totalTitleLabel.frame.width, height: tipView.frame.height)
         tipValueLabel.frame = CGRect(x: tipTitleLabel.frame.maxX + spaceInBetween, y: 0.0, width: tipView.frame.width - spaceToRight - tipTitleLabel.frame.maxX - spaceInBetween, height: tipView.frame.height)
     }
 

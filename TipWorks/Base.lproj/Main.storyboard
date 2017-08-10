@@ -52,10 +52,10 @@
                                                 <rect key="frame" x="27" y="23" width="42" height="75"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="+">
+                                                    <fragment content="Tip">
                                                         <attributes>
                                                             <font key="NSFont" size="36" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
@@ -101,7 +101,7 @@
                                                     <fragment content="Total">
                                                         <attributes>
                                                             <font key="NSFont" size="36" name=".SFNSText"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
@@ -161,6 +161,9 @@
                                             <segment title="20%"/>
                                             <segment title="25%"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="tipPercSegControlValueDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="HHq-xu-vF0"/>
+                                        </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csb-J9-jyQ" userLabel="Done Button">
                                         <rect key="frame" x="343" y="0.0" width="60" height="30"/>
