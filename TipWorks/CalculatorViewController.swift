@@ -56,7 +56,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return maxNumOfSplit
+        return maxNumOfSplit - 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -67,8 +67,15 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
         
-        cell.textLabel!.text = "haha"
-        cell.detailTextLabel!.text = totalValueLabel.text
+        let numToSplit = indexPath.row + 2
+        let title = "Party of \(numToSplit), each pays about: "
+        
+        let totalStr: String = totalValueLabel.text!.replacingOccurrences(of: "$", with: "")
+        let total = Double(totalStr)!
+        let share = String.init(format: "$%.2f", total/Double(numToSplit))
+        
+        cell.textLabel!.text = title
+        cell.detailTextLabel!.text = share
         return cell
     }
     
