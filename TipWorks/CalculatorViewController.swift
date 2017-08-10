@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalculatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CalculatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var numbersView: UIView!
     @IBOutlet weak var billTextField: UITextField!
@@ -37,7 +37,6 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         // make everything hidden and change their position after view appears,
         // and then make them visible.
         hideAllObjects()
@@ -72,6 +71,80 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.detailTextLabel!.text = "haha2"
         return cell
     }
+    
+    // MARK: textField delegate functions
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.text = "$"
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "0" && textField.text == "$0" {
+            return false
+        }
+        
+        if string == "." && textField.text!.contains(".") {
+            return false
+        }
+        
+        if string == "" && textField.text == "$" {
+            return false
+        }
+
+        // Nothing is less than a penny, we only take at most two digits after decimal point
+        if string != "" && digitsAfterDecimalPoint(textField.text!) >= 2 {
+            return false
+        }
+        
+        var numberStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        if numberStr == "$" {
+            numberStr = "0"
+        } else {
+            numberStr = numberStr.replacingOccurrences(of: "$", with: "")
+        }
+        
+        updateNumbers(numberStr)
+        
+        if textField.text == "$0" {
+            textField.text = ("$" + numberStr).replacingOccurrences(of: "$0", with: "$")
+            return false
+        }
+        
+        return true
+    }
+    
+    func updateNumbers(_ billNumberStr: String) {
+        let bill = Double(billNumberStr)
+        
+        
+        
+        
+        
+        
+        
+        if let bill = bill {
+            totalValueLabel.text = "$" + String.init(format: "%.2f", bill)
+        } else {
+            totalValueLabel.text = "$0.00"
+        }
+    }
+    
+    
+    func digitsAfterDecimalPoint(_ numberStr: String) -> Int {
+        var numOfDigits = 0
+        var foundDecimalPoint = false
+        for c in numberStr.characters {
+            if foundDecimalPoint {
+                numOfDigits = numOfDigits + 1
+            } else if c == "." {
+                foundDecimalPoint = true
+            }
+        }
+        return numOfDigits
+    }
+    
     
     func hideAllObjects() {
         numbersView.isHidden = true

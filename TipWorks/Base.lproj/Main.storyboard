@@ -41,6 +41,7 @@
                                         <connections>
                                             <action selector="billTextFieldEditDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="Eb1-MF-rZr"/>
                                             <action selector="billValueChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="j38-Q1-Xdh"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="K8o-gM-Sqk"/>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0L-r3-GMv" userLabel="Tip View">
