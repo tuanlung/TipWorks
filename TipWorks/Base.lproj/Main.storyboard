@@ -231,14 +231,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y9a-zd-yHz">
-                                <rect key="frame" x="0.0" y="64" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="ctJ-mo-DTX"/>
-                                </constraints>
+                                <gestureRecognizers/>
                                 <color key="separatorColor" red="0.30727351660000002" green="0.41088691700000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tipPercTableViewCell" id="IAh-h8-ULi" userLabel="Tip Percentage">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tipPercTableViewCell" id="IAh-h8-ULi" userLabel="Tip Percentage" customClass="tipPercTableViewCell" customModule="TipWorks" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IAh-h8-ULi" id="EoL-Ba-Dpa">
@@ -285,8 +283,11 @@
                                                 <constraint firstItem="jdd-b3-RqF" firstAttribute="height" secondItem="EoL-Ba-Dpa" secondAttribute="height" id="xbt-MU-jHR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="currentSelectionLabel" destination="jdd-b3-RqF" id="JK2-mj-5td"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="maxNumberToSplitTableViewCell" id="qBb-7r-a1R" userLabel="Max Number to Split">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="maxNumberToSplitTableViewCell" id="qBb-7r-a1R" userLabel="Max Number to Split" customClass="maxNumberToSplitTableViewCell" customModule="TipWorks" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qBb-7r-a1R" id="c8I-63-mR2">
@@ -330,8 +331,12 @@
                                                 <constraint firstItem="YND-it-wBN" firstAttribute="height" secondItem="c8I-63-mR2" secondAttribute="height" id="rer-3F-RWg"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="currentValueLabel" destination="YND-it-wBN" id="jUC-Gj-lbX"/>
+                                            <outlet property="stepper" destination="jYr-IM-Jc0" id="jte-gD-ii5"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageTableViewCell" id="jgk-2R-hjZ" userLabel="Language">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageTableViewCell" id="jgk-2R-hjZ" userLabel="Language" customClass="languageTableViewCell" customModule="TipWorks" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="116" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jgk-2R-hjZ" id="6Bi-5V-Gua">
@@ -379,12 +384,16 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="currentSelectionLabel" destination="uqZ-Ov-6f8" id="yyO-7Z-hLj"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
                                 <connections>
                                     <outlet property="dataSource" destination="kxW-kU-ZUd" id="oC8-zW-QB2"/>
                                     <outlet property="delegate" destination="kxW-kU-ZUd" id="mPw-2G-fsv"/>
+                                    <outletCollection property="gestureRecognizers" destination="vJX-i1-eig" appends="YES" id="G6A-Nj-1N9"/>
                                 </connections>
                             </tableView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6K-ra-1bu" userLabel="Language Picker View">
@@ -401,6 +410,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Y9a-zd-yHz" firstAttribute="width" secondItem="x3b-T2-hrr" secondAttribute="width" id="CjZ-ab-4I9"/>
+                            <constraint firstItem="lt0-8C-sTT" firstAttribute="top" secondItem="Y9a-zd-yHz" secondAttribute="bottom" id="MPC-sx-m9N"/>
                             <constraint firstItem="Y9a-zd-yHz" firstAttribute="top" secondItem="NsQ-IL-OZQ" secondAttribute="bottom" id="hvz-52-3Qu"/>
                             <constraint firstItem="Y9a-zd-yHz" firstAttribute="centerX" secondItem="x3b-T2-hrr" secondAttribute="centerX" id="iem-Dg-oMN"/>
                             <constraint firstItem="lt0-8C-sTT" firstAttribute="top" secondItem="z6K-ra-1bu" secondAttribute="bottom" id="ltF-lu-NZ0"/>
@@ -411,9 +421,16 @@
                     <navigationItem key="navigationItem" title="Settings" id="olR-JC-GgY"/>
                     <connections>
                         <outlet property="languagePickerView" destination="z6K-ra-1bu" id="8Mm-vI-i4R"/>
+                        <outlet property="tableView" destination="Y9a-zd-yHz" id="xd1-Ba-eRw"/>
+                        <outlet property="tapRecognizer" destination="vJX-i1-eig" id="4Za-KQ-sYX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFj-bj-Efk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="vJX-i1-eig">
+                    <connections>
+                        <action selector="tappedOnTableView:" destination="kxW-kU-ZUd" id="cuN-tG-km4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1851" y="781"/>
         </scene>

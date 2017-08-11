@@ -13,6 +13,7 @@
 		FC6BCA1D1F3A3B9900E51AAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC6BCA1C1F3A3B9900E51AAE /* Assets.xcassets */; };
 		FC6BCA201F3A3B9900E51AAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6BCA1E1F3A3B9900E51AAE /* LaunchScreen.storyboard */; };
 		FC6BCA2C1F3D182B00E51AAE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6BCA2B1F3D182B00E51AAE /* SettingsViewController.swift */; };
+		FCCEC3B31F3DF4C30032A2FB /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCEC3B21F3DF4C30032A2FB /* SettingsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FC6BCA1F1F3A3B9900E51AAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC6BCA211F3A3B9900E51AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC6BCA2B1F3D182B00E51AAE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FCCEC3B21F3DF4C30032A2FB /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				FC6BCA1E1F3A3B9900E51AAE /* LaunchScreen.storyboard */,
 				FC6BCA211F3A3B9900E51AAE /* Info.plist */,
 				FC6BCA2B1F3D182B00E51AAE /* SettingsViewController.swift */,
+				FCCEC3B21F3DF4C30032A2FB /* SettingsTableViewCell.swift */,
 			);
 			path = TipWorks;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				FC6BCA181F3A3B9900E51AAE /* CalculatorViewController.swift in Sources */,
 				FC6BCA161F3A3B9900E51AAE /* AppDelegate.swift in Sources */,
+				FCCEC3B31F3DF4C30032A2FB /* SettingsTableViewCell.swift in Sources */,
 				FC6BCA2C1F3D182B00E51AAE /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
