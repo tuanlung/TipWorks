@@ -58,7 +58,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
         switch identifier {
             case "tipPercTableViewCell":
-                print("placeholder")
+                performSegue(withIdentifier: "toTipPercentageSegue", sender: self)
             case "languageTableViewCell":
                 languagePickerView.isHidden = false
                 tapRecognizer.isEnabled = true
