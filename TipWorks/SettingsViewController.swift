@@ -54,9 +54,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-        if tableViewCellIdentifiers[indexPath.row] == "languageTableViewCell" {
-            languagePickerView.isHidden = false
-            tapRecognizer.isEnabled = true
+        let identifier = tableViewCellIdentifiers[indexPath.row]
+            
+        switch identifier {
+            case "tipPercTableViewCell":
+                print("placeholder")
+            case "languageTableViewCell":
+                languagePickerView.isHidden = false
+                tapRecognizer.isEnabled = true
+            default:
+                print("placeholder")
         }
     }
     
@@ -74,8 +81,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             case "maxNumberToSplitTableViewCell":
                 let cell = reuseCell as! maxNumberToSplitTableViewCell
-                //cell.currentValueLabel.text = "\(maxNumberToSplit)"
-                print("placeholder")
+                
+                cell.syncFromStorage()
             
             case "languageTableViewCell":
                 let cell = reuseCell as! languageTableViewCell
