@@ -29,4 +29,12 @@ class Translator {
                       "Payment": ["简体中文": "款项", "繁體中文": "款項"]
                       ]
 
+    static func translate(settings: SettingsData, word: String) -> String {
+        let language = Translator.languageOptions[settings.languageOption]
+        if language == "English" {
+            return word
+        }
+
+        return Translator.dictionary[word]![language]!
+    }
 }

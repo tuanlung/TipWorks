@@ -81,10 +81,6 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         return settings.maxNumToSplit - 1
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
@@ -215,11 +211,6 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: IBActions
-    @IBAction func resignKeyboard(_ sender: Any) {
-        view.endEditing(true)
-        moveTipPercSegControl(direction: .Right, animated: true)
-        doneButton.isHidden = true
-    }
     
     @IBAction func billValueChanged(_ sender: Any) {
         adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
@@ -234,7 +225,17 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     @IBAction func tipPercSegControlValueDidChange(_ sender: Any) {
+        if billTextField.text != "$" {
+            adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
+        }
         updateNumbers()
+    }
+    
+    @IBAction func tapOnDoneButton(_ sender: Any) {
+        view.endEditing(true)
+        doneButton.isHidden = true
+        moveTipPercSegControl(direction: .Right, animated: true)
+        saveToHistory()
     }
 }
 
@@ -245,6 +246,7 @@ extension CalculatorViewController {
 
         moveTipPercSegControl(direction: .Left, animated: true)
         doneButton.isHidden = false
+
         expandTotalViewFrame(animated: true)
         expandTipViewFrame(animated: true)
     }
@@ -408,8 +410,24 @@ extension CalculatorViewController {
         for i in 0..<tipOptions.count {
             tipPercSegControl.setTitle("\(tipOptions[i])%", forSegmentAt: i)
         }
+        
+        translateUserInterface()
     }
     
+    func translateUserInterface() {
+
+        tipTitleLabel.text = translate("Tip")
+        totalTitleLabel.text = translate("Total")
+        
+        let title = doneButton.attributedTitle(for: .normal)!
+        let attributes = title.attributes(at: 0, longestEffectiveRange: nil, in: NSMakeRange(0, title.length) )
+        
+        doneButton.setAttributedTitle(NSAttributedString(string: translate("Done"), attributes: attributes), for: .normal)
+    }
+    
+    func translate(_ word: String) -> String {
+        return Translator.translate(settings: settings, word: word)
+    }
 
     // MARK: Bill Text Value
     func billHasValue() -> Bool {
@@ -430,8 +448,32 @@ extension CalculatorViewController {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
     }
     
+    
+    
+    func saveToHistory() {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        let dateStr = formatter.string(from: date)
+
+        let total = Double(totalValueLabel.text!.replacingOccurrences(of: "$", with: ""))!
+        
+        let percentage = settings.tipOptions[tipPercSegControl.selectedSegmentIndex]
+        
+        let payment = PaymentData(date: dateStr, total: total, percentage: percentage)
+        
+        
+        var history = HistoryData()
+        if let savedHistory = Storage.load(key: "history") as? HistoryData {
+            history = savedHistory
+        }
+        
+        history.records.append(payment)
+        Storage.save(key: "history", value: history)
+    }
 }
 
 enum Direction {
     case Left, Right
 }
+
