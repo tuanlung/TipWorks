@@ -20,7 +20,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     let tableViewCellIdentifiers = ["tipPercTableViewCell", "maxNumberToSplitTableViewCell", "languageTableViewCell"]
-    let languageOptions = ["English", "español", "中文", "日本語"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +39,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: picker view delegate functions
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return languageOptions.count
+        return Translator.languageOptions.count
     }
     
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return languageOptions[row]
+        return Translator.languageOptions[row]
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -100,7 +99,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             case "languageTableViewCell":
                 let cell = reuseCell as! languageTableViewCell
-                cell.currentSelectionLabel.text = languageOptions[settings.languageOption]
+                cell.currentSelectionLabel.text = Translator.languageOptions[settings.languageOption]
 
             default:
                 print("Should never reach here")
@@ -130,9 +129,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         Storage.save(key: "settings", value: settings)
         tableView.reloadData()
     }
-    
-
-    
     
 }
 
