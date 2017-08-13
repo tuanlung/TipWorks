@@ -30,7 +30,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        super.viewWillAppear(animated)
+        
         if let settings = Storage.load(key: "settings") as? SettingsData {
             self.settings = settings
         }

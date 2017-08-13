@@ -23,6 +23,8 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var totalValueLabel: UILabel!
     
+    
+    // MARK: Location related variables
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
     var tipPercViewHeight: CGFloat = 40.0
@@ -30,14 +32,24 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     var billTextFieldHeightRaito: CGFloat = 0.5
     var tipViewHeightRatio: CGFloat = 0.25
     var totalViewHeightRatio: CGFloat = 0.25
-    var maxNumOfSplit = 10
-    var tipPercOptionsMapping = [0.18, 0.20, 0.25]
+    
+    // MARK: other variables
+    var settings = SettingsData()
+    var tipPercOptionsMapping: [Double] {
+        get {
+            var tipPerc = [Double]()
+            for opt in settings.tipOptions {
+                tipPerc.append(Double(opt)/100.0)
+            }
+            return tipPerc
+        }
+    }
     
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // make everything hidden and change their position after view appears,
         // and then make them visible.
         hideAllObjects()
@@ -45,6 +57,15 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         subscribeToKeyboardEvents()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let settings = Storage.load(key: "settings") as? SettingsData {
+            self.settings = settings
+        }
+        
+        customizeBySettings()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -57,7 +78,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return maxNumOfSplit - 1
+        return settings.maxNumToSplit - 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -378,6 +399,14 @@ extension CalculatorViewController {
         } else {
             billTextField.frame = CGRect(x: 0.0, y: 0.0, width: numbersView.frame.width, height: numbersView.frame.height)
             billTextField.isHidden = false
+        }
+    }
+    
+    func customizeBySettings() {
+        tipPercSegControl.selectedSegmentIndex = settings.defaultTipOption
+        let tipOptions = settings.tipOptions
+        for i in 0..<tipOptions.count {
+            tipPercSegControl.setTitle("\(tipOptions[i])%", forSegmentAt: i)
         }
     }
     
