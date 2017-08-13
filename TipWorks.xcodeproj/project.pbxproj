@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		FC4B68761F3FE33600E8A760 /* PaymentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4B68751F3FE33600E8A760 /* PaymentData.swift */; };
 		FC4B68781F3FE39300E8A760 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4B68771F3FE39300E8A760 /* Storage.swift */; };
+		FC4B687A1F3FE52000E8A760 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4B68791F3FE52000E8A760 /* SettingsData.swift */; };
+		FC4B687C1F3FE86D00E8A760 /* HistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4B687B1F3FE86D00E8A760 /* HistoryData.swift */; };
 		FC6BCA161F3A3B9900E51AAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6BCA151F3A3B9900E51AAE /* AppDelegate.swift */; };
 		FC6BCA181F3A3B9900E51AAE /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6BCA171F3A3B9900E51AAE /* CalculatorViewController.swift */; };
 		FC6BCA1B1F3A3B9900E51AAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6BCA191F3A3B9900E51AAE /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		FC4B68751F3FE33600E8A760 /* PaymentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentData.swift; sourceTree = "<group>"; };
 		FC4B68771F3FE39300E8A760 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		FC4B68791F3FE52000E8A760 /* SettingsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
+		FC4B687B1F3FE86D00E8A760 /* HistoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryData.swift; sourceTree = "<group>"; };
 		FC6BCA121F3A3B9900E51AAE /* TipWorks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipWorks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC6BCA151F3A3B9900E51AAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC6BCA171F3A3B9900E51AAE /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 				FCCEC3B41F3E17290032A2FB /* TipPercentageOptionsViewController.swift */,
 				FC4B68751F3FE33600E8A760 /* PaymentData.swift */,
 				FC4B68771F3FE39300E8A760 /* Storage.swift */,
+				FC4B68791F3FE52000E8A760 /* SettingsData.swift */,
+				FC4B687B1F3FE86D00E8A760 /* HistoryData.swift */,
 			);
 			path = TipWorks;
 			sourceTree = "<group>";
@@ -152,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC4B687A1F3FE52000E8A760 /* SettingsData.swift in Sources */,
 				FC6BCA181F3A3B9900E51AAE /* CalculatorViewController.swift in Sources */,
 				FC4B68781F3FE39300E8A760 /* Storage.swift in Sources */,
 				FC6BCA161F3A3B9900E51AAE /* AppDelegate.swift in Sources */,
@@ -159,6 +166,7 @@
 				FCCEC3B31F3DF4C30032A2FB /* SettingsTableViewCell.swift in Sources */,
 				FC6BCA2C1F3D182B00E51AAE /* SettingsViewController.swift in Sources */,
 				FCCEC3B51F3E17290032A2FB /* TipPercentageOptionsViewController.swift in Sources */,
+				FC4B687C1F3FE86D00E8A760 /* HistoryData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

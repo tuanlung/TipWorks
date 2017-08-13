@@ -566,26 +566,44 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="18%" borderStyle="bezel" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CO6-7n-wxM" userLabel="Value">
-                                                    <rect key="frame" x="248" y="0.0" width="75" height="43.666666666666664"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="18" borderStyle="roundedRect" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CO6-7n-wxM" userLabel="Value">
+                                                    <rect key="frame" x="228" y="0.0" width="75" height="43.666666666666664"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="iGQ-d4-995"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="cHQ-SV-zrV" id="mq0-uv-08i"/>
+                                                    </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qz-TA-1kc" userLabel="Default Switch">
                                                     <rect key="frame" x="343" y="6" width="51" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="49" id="c1z-Yq-TIB"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="defaultSwitchValueDidChange:" destination="cHQ-SV-zrV" eventType="valueChanged" id="iev-5E-jbS"/>
+                                                    </connections>
                                                 </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcQ-PW-fex" userLabel="%">
+                                                    <rect key="frame" x="311" y="12" width="42" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="d3b-Ns-eUD"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="4qz-TA-1kc" firstAttribute="centerY" secondItem="ze6-R3-HGk" secondAttribute="centerY" id="0Ja-8d-Ezz"/>
+                                                <constraint firstItem="bcQ-PW-fex" firstAttribute="height" secondItem="ze6-R3-HGk" secondAttribute="height" id="Brs-iX-3o9"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="0NL-a9-f0p" secondAttribute="leading" id="EsN-5z-n1o"/>
-                                                <constraint firstItem="4qz-TA-1kc" firstAttribute="leading" secondItem="CO6-7n-wxM" secondAttribute="trailing" constant="20" id="LRU-yq-kPb"/>
+                                                <constraint firstItem="bcQ-PW-fex" firstAttribute="leading" secondItem="CO6-7n-wxM" secondAttribute="trailing" constant="8" id="HhB-hx-Ev9"/>
+                                                <constraint firstItem="bcQ-PW-fex" firstAttribute="centerY" secondItem="ze6-R3-HGk" secondAttribute="centerY" id="IHr-6b-Q7C"/>
+                                                <constraint firstItem="4qz-TA-1kc" firstAttribute="leading" secondItem="CO6-7n-wxM" secondAttribute="trailing" constant="40" id="LRU-yq-kPb"/>
                                                 <constraint firstItem="0NL-a9-f0p" firstAttribute="centerY" secondItem="ze6-R3-HGk" secondAttribute="centerY" id="PE9-BH-dHl"/>
                                                 <constraint firstItem="CO6-7n-wxM" firstAttribute="height" secondItem="ze6-R3-HGk" secondAttribute="height" id="Pbc-sd-hJZ"/>
                                                 <constraint firstItem="0NL-a9-f0p" firstAttribute="height" secondItem="ze6-R3-HGk" secondAttribute="height" id="Vw9-T4-eeC"/>
@@ -618,6 +636,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="yu0-0U-6sF" firstAttribute="top" secondItem="lTE-Xt-BiV" secondAttribute="bottom" constant="10" id="1ax-e0-6Jq"/>
                             <constraint firstItem="yu0-0U-6sF" firstAttribute="centerX" secondItem="fl3-ID-ZyY" secondAttribute="centerX" id="1wK-N9-IrW"/>
@@ -626,6 +645,9 @@
                             <constraint firstItem="2EK-y8-x2h" firstAttribute="top" secondItem="yu0-0U-6sF" secondAttribute="bottom" id="Mrv-Z3-0TQ"/>
                             <constraint firstItem="lTE-Xt-BiV" firstAttribute="top" secondItem="oSE-QY-hsm" secondAttribute="bottom" constant="45" id="j6O-fe-Ml1"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="QMg-mp-n9K" appends="YES" id="JfJ-mQ-mR9"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Tip Options Setting" id="caR-Fd-hJu">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="89X-Yp-gpy">
@@ -645,6 +667,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Tv-lv-BSI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="QMg-mp-n9K">
+                    <connections>
+                        <action selector="userDidTap:" destination="cHQ-SV-zrV" id="7y4-fx-Ipv"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2605.7971014492755" y="782.60869565217399"/>
         </scene>

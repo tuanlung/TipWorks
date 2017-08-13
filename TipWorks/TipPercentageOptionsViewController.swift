@@ -8,12 +8,26 @@
 
 import UIKit
 
-class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var tipOptionValues: [Int] = [18, 20, 25]
     var defaultOption = 0
     
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let tipOptionValues = Storage.load(key: "tipOptionValues") as? [Int] {
+            self.tipOptionValues = tipOptionValues
+        }
+        
+        if let defaultOption = Storage.load(key: "defaultOption") as? Int {
+            self.defaultOption = defaultOption
+        }
+    }
+    
+    // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tipOptionValues.count
     }
@@ -24,7 +38,10 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         let row = indexPath.row
         
         cell.titleLabel.text = "Option \(row+1)"
-        cell.valueTextField.text = tipOptionValues[row].description + "%"
+        cell.valueTextField.text = tipOptionValues[row].description
+        cell.valueTextField.tag = row
+        cell.defaultSwitch.tag = row
+        
         if row == defaultOption {
             cell.defaultSwitch.isOn = true
         } else {
@@ -34,28 +51,42 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         return cell
     }
     
+    // MARK: text field delegate functions
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let numStr = textField.text {
+            tipOptionValues[textField.tag] = Int(numStr)!
+        } else {
+            // no number, set textfield back to original value
+            textField.text = tipOptionValues[textField.tag].description
+        }
+    }
     
     // MARK: IBActions
     @IBAction func cancel(_ sender: Any) {
-        //navigationController?.popViewController(animated: true)
-        Storage.save(key: "tlwang", value: PaymentData())
+        view.endEditing(true)
+        
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func save(_ sender: Any) {
-        //navigationController?.popViewController(animated: true)
-        var num = Storage.load(key: "tlwang") as! PaymentData
-        //tipOptionValues = [num.a, num.b, num.c]
-        //tableView.reloadData()
-        print(num.description)
+        view.endEditing(true)
         
+        Storage.save(key: "tipOptionValues", value: tipOptionValues)
+        Storage.save(key: "defaultOption", value: defaultOption)
         
-        num.date = num.date + "A"
-        num.total = num.total + 1.0
-        num.percentage = num.percentage + 1
-        
-        Storage.save(key: "tlwang", value: num)
+        navigationController?.popViewController(animated: true)
     }
     
+
+    @IBAction func userDidTap(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    @IBAction func defaultSwitchValueDidChange(_ sender: Any) {
+        let defaultSwitch = sender as! UISwitch
+        defaultOption = defaultSwitch.tag
+        tableView.reloadData()
+    }
 }
 
 class TipPercOptionTableViewCell: UITableViewCell {

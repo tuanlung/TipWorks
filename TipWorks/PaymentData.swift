@@ -20,13 +20,8 @@ class PaymentData: NSObject, NSCoding {
             self.date = date
         }
         
-        if let total = aDecoder.decodeDouble(forKey: "total") as? Double {
-            self.total = total
-        }
-        
-        if let percentage = aDecoder.decodeInteger(forKey: "percentage") as? Int {
-            self.percentage = percentage
-        }
+        total = aDecoder.decodeDouble(forKey: "total")
+        percentage = aDecoder.decodeInteger(forKey: "percentage")
     }
     
     func encode(with aCoder: NSCoder) {
