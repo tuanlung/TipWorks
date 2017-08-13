@@ -29,6 +29,8 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     var navigationBarMaxY: CGFloat = 0.0
     var tipPercViewHeight: CGFloat = 40.0
     var doneButtonWidth: CGFloat = 60.0
+    var horizontalSpaceBetweenDoneAndPercOptions: CGFloat = 10.0
+    var verticalSpaceBetweenPercOptions: CGFloat = 5.0
     var billTextFieldHeightRaito: CGFloat = 0.5
     var tipViewHeightRatio: CGFloat = 0.25
     var totalViewHeightRatio: CGFloat = 0.25
@@ -315,15 +317,15 @@ extension CalculatorViewController {
     
     func moveTipPercSegControl(direction: Direction, animated: Bool) {
         let animateDuration = 0.4
-        let spaceOnLeft = (direction == .Left) ? self.doneButton.frame.width : 0.0
+        let spaceOnLeft = (direction == .Left) ? (self.doneButton.frame.width + horizontalSpaceBetweenDoneAndPercOptions * 3.0) : (horizontalSpaceBetweenDoneAndPercOptions * 2.0)
         
         if animated {
             UIView.animate(withDuration: animateDuration, animations: {
-                self.tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: self.tipPercView.frame.width - spaceOnLeft, height: self.tipPercView.frame.height)
+                self.tipPercSegControl.frame = CGRect(x: self.horizontalSpaceBetweenDoneAndPercOptions, y: self.verticalSpaceBetweenPercOptions, width: self.tipPercView.frame.width - spaceOnLeft, height: self.tipPercView.frame.height - 2.0 * self.verticalSpaceBetweenPercOptions)
             })
             
         } else {
-            tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: tipPercView.frame.width - spaceOnLeft, height: tipPercView.frame.height)
+            tipPercSegControl.frame = CGRect(x: horizontalSpaceBetweenDoneAndPercOptions, y: verticalSpaceBetweenPercOptions, width: tipPercView.frame.width - spaceOnLeft, height: tipPercView.frame.height - 2.0 * verticalSpaceBetweenPercOptions)
         }
     }
     
@@ -375,11 +377,13 @@ extension CalculatorViewController {
     
     func initializeDoneButtonFrame() {
         
-        doneButton.frame = CGRect(x: tipPercView.frame.width - doneButtonWidth, y: 0.0, width: doneButtonWidth, height: tipPercView.frame.height)
+        doneButton.frame = CGRect(x: tipPercView.frame.width - doneButtonWidth - horizontalSpaceBetweenDoneAndPercOptions, y: verticalSpaceBetweenPercOptions, width: doneButtonWidth, height: tipPercView.frame.height - 2 * verticalSpaceBetweenPercOptions)
+        
     }
     
     func initializeTipPercSegControlFrame() {
-        tipPercSegControl.frame = CGRect(x: 0.0, y: 0.0, width: tipPercView.frame.width, height: tipPercView.frame.height)
+        tipPercSegControl.frame = CGRect(x: horizontalSpaceBetweenDoneAndPercOptions, y: verticalSpaceBetweenPercOptions, width: tipPercView.frame.width - 2 * horizontalSpaceBetweenDoneAndPercOptions, height: tipPercView.frame.height - 2 * verticalSpaceBetweenPercOptions)
+        
         tipPercSegControl.isHidden = false
     }
     
