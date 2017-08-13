@@ -10,10 +10,11 @@ import UIKit
 
 class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var defaultLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
     // constructor takes care of the default settings. See SettingsData.swift
     var settings = SettingsData()
-    
-    @IBOutlet weak var tableView: UITableView!
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -22,6 +23,12 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         if let settings = Storage.load(key: "settings") as? SettingsData {
             self.settings = settings
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        translateUserInterface()
     }
     
     // MARK: table view delegate functions
@@ -33,8 +40,9 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         let cell = tableView.dequeueReusableCell(withIdentifier: "tipPercOptionTableViewCell") as! TipPercOptionTableViewCell
         
         let row = indexPath.row
+        let option = Translator.translate(settings: settings, word: "Option")
         
-        cell.titleLabel.text = "Option \(row+1)"
+        cell.titleLabel.text = option + " \(row+1)"
         cell.valueTextField.text = settings.tipOptions[row].description
         cell.valueTextField.tag = row
         cell.defaultSwitch.tag = row
@@ -82,6 +90,14 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         let defaultSwitch = sender as! UISwitch
         settings.defaultTipOption = defaultSwitch.tag
         tableView.reloadData()
+    }
+    
+    // MARK: translation
+    func translateUserInterface() {
+        navigationItem.leftBarButtonItem?.title = Translator.translate(settings: settings, word: "Cancel")
+        navigationItem.title = Translator.translate(settings: settings, word: "Tip Options Setting")
+        navigationItem.rightBarButtonItem?.title = Translator.translate(settings: settings, word: "Save")
+        defaultLabel.text = Translator.translate(settings: settings, word: "Default")
     }
 }
 

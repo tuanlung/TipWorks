@@ -34,6 +34,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if let settings = Storage.load(key: "settings") as? SettingsData {
             self.settings = settings
         }
+        
+        translateUserInterface()
+        
         tableView.reloadData()
     }
     
@@ -88,7 +91,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                         optStr.append("/")
                     }
                 }
- 
+                cell.titleLabel.text = Translator.translate(settings: settings, word: "Tip Percentage")
                 cell.currentSelectionLabel.text = optStr
             
             case "maxNumberToSplitTableViewCell":
@@ -96,10 +99,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 let maxNum = settings.maxNumToSplit
                 cell.stepper.value = Double(maxNum)
                 cell.currentValueLabel.text = maxNum.description
+                cell.titleLabel.text = Translator.translate(settings: settings, word: "Max Number to Split")
             
             case "languageTableViewCell":
                 let cell = reuseCell as! languageTableViewCell
                 cell.currentSelectionLabel.text = Translator.languageOptions[settings.languageOption]
+                cell.titleLabel.text = Translator.translate(settings: settings, word: "Language")
 
             default:
                 print("Should never reach here")
@@ -130,6 +135,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
     
+    // MARK: translation
+    func translateUserInterface() {
+        navigationItem.title = Translator.translate(settings: settings, word: "Settings")
+    }
 }
 
 

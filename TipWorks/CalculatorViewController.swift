@@ -86,7 +86,9 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
         
         let numToSplit = indexPath.row + 2
-        let title = "Party of \(numToSplit), each pays about: "
+        let firstHalf = translate("Party of")
+        let secondHalf = translate(", each pays about")
+        let title = firstHalf + " \(numToSplit)" + secondHalf + ": "
         
         let totalStr: String = totalValueLabel.text!.replacingOccurrences(of: "$", with: "")
         let total = Double(totalStr)!

@@ -315,10 +315,17 @@
                             <constraint firstItem="Jxp-go-5kI" firstAttribute="leading" secondItem="lCu-Dh-LGt" secondAttribute="trailing" constant="70" id="wTv-s9-hun"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="History" id="ujM-PY-kWh"/>
+                    <navigationItem key="navigationItem" title="History" id="ujM-PY-kWh">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="9JV-Wx-8vx">
+                            <connections>
+                                <action selector="tapOnClearButton:" destination="Iaq-SU-yVe" id="nAZ-DG-mUH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateTitleLabel" destination="lCu-Dh-LGt" id="wM0-F4-Y3F"/>
                         <outlet property="paymentTitleLabel" destination="Jxp-go-5kI" id="3ih-3L-UXV"/>
+                        <outlet property="tableView" destination="f2f-cb-b7x" id="dSy-CT-KUL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9S-fc-yyP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,6 +399,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="currentSelectionLabel" destination="jdd-b3-RqF" id="JK2-mj-5td"/>
+                                            <outlet property="titleLabel" destination="kMu-03-EuX" id="RLl-yu-nYF"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="maxNumberToSplitTableViewCell" id="qBb-7r-a1R" userLabel="Max Number to Split" customClass="maxNumberToSplitTableViewCell" customModule="TipWorks" customModuleProvider="target">
@@ -444,6 +452,7 @@
                                         <connections>
                                             <outlet property="currentValueLabel" destination="YND-it-wBN" id="jUC-Gj-lbX"/>
                                             <outlet property="stepper" destination="jYr-IM-Jc0" id="jte-gD-ii5"/>
+                                            <outlet property="titleLabel" destination="qLF-EI-Q8L" id="yTc-P5-h2o"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageTableViewCell" id="jgk-2R-hjZ" userLabel="Language" customClass="languageTableViewCell" customModule="TipWorks" customModuleProvider="target">
@@ -496,6 +505,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="currentSelectionLabel" destination="uqZ-Ov-6f8" id="yyO-7Z-hLj"/>
+                                            <outlet property="titleLabel" destination="vqz-B7-RT8" id="GSb-nm-ZMq"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -599,8 +609,8 @@
                                                         <action selector="defaultSwitchValueDidChange:" destination="cHQ-SV-zrV" eventType="valueChanged" id="iev-5E-jbS"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcQ-PW-fex" userLabel="%">
-                                                    <rect key="frame" x="311" y="12" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcQ-PW-fex" userLabel="%">
+                                                    <rect key="frame" x="311" y="0.66666666666666785" width="50" height="43.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="d3b-Ns-eUD"/>
                                                     </constraints>
@@ -675,6 +685,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="defaultLabel" destination="lTE-Xt-BiV" id="qDm-9X-RCv"/>
                         <outlet property="tableView" destination="yu0-0U-6sF" id="BGN-tv-xBK"/>
                     </connections>
                 </viewController>

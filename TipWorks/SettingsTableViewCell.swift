@@ -9,14 +9,18 @@
 import UIKit
 
 class tipPercTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var currentSelectionLabel: UILabel!
 }
 
 class maxNumberToSplitTableViewCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var currentValueLabel: UILabel!
 }
 
 class languageTableViewCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var currentSelectionLabel: UILabel!
 }

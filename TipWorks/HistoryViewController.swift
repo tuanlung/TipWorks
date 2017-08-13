@@ -12,6 +12,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var dateTitleLabel: UILabel!
     @IBOutlet weak var paymentTitleLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var history = HistoryData()
     var settings = SettingsData()
@@ -38,20 +39,31 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableViewCell") as! HistoryTableViewCell
-        let record = history.records[indexPath.row]
+        
+        // latest should be shown at top
+        let numOfRecords = history.records.count
+        let record = history.records[numOfRecords - 1 - indexPath.row]
         
         let tip = Translator.translate(settings: settings, word: "Tip")
         
         cell.dateLabel.text = record.date
-        cell.paymentLabel.text = String(format: "$%10.2f (%d%% ", record.total, record.percentage) + tip
+        cell.paymentLabel.text = String(format: "$%.2f (%d%% ", record.total, record.percentage) + tip + ")"
         
         return cell
     }
     
-    // translation
+    // MARK: translation
     func translateUserInterface() {
+        navigationItem.title = Translator.translate(settings: settings, word: "History")
+        navigationItem.rightBarButtonItem?.title = Translator.translate(settings: settings, word: "Clear")
         dateTitleLabel.text = Translator.translate(settings: settings, word: "Date")
         paymentTitleLabel.text = Translator.translate(settings: settings, word: "Payment")
     }
     
+    // MARK: IBActions
+    @IBAction func tapOnClearButton(_ sender: Any) {
+        history.records.removeAll(keepingCapacity: false)
+        tableView.reloadData()
+        Storage.save(key: "history", value: history)
+    }
 }
