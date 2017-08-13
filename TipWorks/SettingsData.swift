@@ -10,7 +10,7 @@ import Foundation
 
 class SettingsData: NSObject, NSCoding {
     
-    var tipOptions: [Int] = []
+    var tipOptions: [Int] = [18, 20, 25]
     var defaultTipOption: Int = 0
     var maxNumToSplit: Int = 10
     var languageOption: Int = 0

@@ -9,8 +9,9 @@
 import UIKit
 
 class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    var tipOptionValues: [Int] = [18, 20, 25]
-    var defaultOption = 0
+    
+    // constructor takes care of the default settings. See SettingsData.swift
+    var settings = SettingsData()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,18 +19,14 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let tipOptionValues = Storage.load(key: "tipOptionValues") as? [Int] {
-            self.tipOptionValues = tipOptionValues
-        }
-        
-        if let defaultOption = Storage.load(key: "defaultOption") as? Int {
-            self.defaultOption = defaultOption
+        if let settings = Storage.load(key: "settings") as? SettingsData {
+            self.settings = settings
         }
     }
     
     // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tipOptionValues.count
+        return settings.tipOptions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,11 +35,11 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         let row = indexPath.row
         
         cell.titleLabel.text = "Option \(row+1)"
-        cell.valueTextField.text = tipOptionValues[row].description
+        cell.valueTextField.text = settings.tipOptions[row].description
         cell.valueTextField.tag = row
         cell.defaultSwitch.tag = row
         
-        if row == defaultOption {
+        if row == settings.defaultTipOption {
             cell.defaultSwitch.isOn = true
         } else {
             cell.defaultSwitch.isOn = false
@@ -53,11 +50,11 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
     
     // MARK: text field delegate functions
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let numStr = textField.text {
-            tipOptionValues[textField.tag] = Int(numStr)!
+        if let numStr = textField.text, let num = Int(numStr) {
+            settings.tipOptions[textField.tag] = num
         } else {
             // no number, set textfield back to original value
-            textField.text = tipOptionValues[textField.tag].description
+            textField.text = settings.tipOptions[textField.tag].description
         }
     }
     
@@ -71,8 +68,7 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
     @IBAction func save(_ sender: Any) {
         view.endEditing(true)
         
-        Storage.save(key: "tipOptionValues", value: tipOptionValues)
-        Storage.save(key: "defaultOption", value: defaultOption)
+        Storage.save(key: "settings", value: settings)
         
         navigationController?.popViewController(animated: true)
     }
@@ -84,7 +80,7 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
     
     @IBAction func defaultSwitchValueDidChange(_ sender: Any) {
         let defaultSwitch = sender as! UISwitch
-        defaultOption = defaultSwitch.tag
+        settings.defaultTipOption = defaultSwitch.tag
         tableView.reloadData()
     }
 }

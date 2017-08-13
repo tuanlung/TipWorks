@@ -352,7 +352,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="xoS-wY-qsK"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -405,7 +405,7 @@
                                                         <constraint firstAttribute="height" constant="29" id="xqp-Ox-mev"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="valueDidChange:" destination="qBb-7r-a1R" eventType="valueChanged" id="FMs-VO-ewS"/>
+                                                        <action selector="stepperValueDidChange:" destination="kxW-kU-ZUd" eventType="valueChanged" id="gae-WP-kMo"/>
                                                     </connections>
                                                 </stepper>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YND-it-wBN" userLabel="Current Value">

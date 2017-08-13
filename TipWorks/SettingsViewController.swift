@@ -14,13 +14,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var languagePickerView: UIPickerView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
-    
-    
-    
-    
-    var languageIndex = 0
-    var maxNumberToSplit = 10
 
+    // constructor takes care of the default settings. See SettingsData.swift
+    var settings = SettingsData()
 
     
     let tableViewCellIdentifiers = ["tipPercTableViewCell", "maxNumberToSplitTableViewCell", "languageTableViewCell"]
@@ -28,9 +24,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         languagePickerView.isHidden = true
         tapRecognizer.isEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        if let settings = Storage.load(key: "settings") as? SettingsData {
+            self.settings = settings
+        }
+        tableView.reloadData()
     }
     
     // MARK: picker view delegate functions
@@ -48,7 +52,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        languageIndex = row
+        settings.languageOption = row
     }
     
     // MARK: table view delegate functions
@@ -63,33 +67,42 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 languagePickerView.isHidden = false
                 tapRecognizer.isEnabled = true
             default:
-                print("placeholder")
+                print("Selected " + identifier + ", do nothing.")
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let identifier = tableViewCellIdentifiers[indexPath.row]
-        
         let reuseCell = tableView.dequeueReusableCell(withIdentifier: identifier)!
-        
         
         switch identifier {
             case "tipPercTableViewCell":
                 let cell = reuseCell as! tipPercTableViewCell
-                cell.currentSelectionLabel.text = "placeholder"
+                
+                let tipOptions = settings.tipOptions
+                var optStr = ""
+                for (index, opt) in tipOptions.enumerated() {
+                    optStr.append(opt.description + "%")
+                    if index != tipOptions.count - 1 {
+                        optStr.append("/")
+                    }
+                }
+ 
+                cell.currentSelectionLabel.text = optStr
             
             case "maxNumberToSplitTableViewCell":
                 let cell = reuseCell as! maxNumberToSplitTableViewCell
-                
-                cell.syncFromStorage()
+                let maxNum = settings.maxNumToSplit
+                cell.stepper.value = Double(maxNum)
+                cell.currentValueLabel.text = maxNum.description
             
             case "languageTableViewCell":
                 let cell = reuseCell as! languageTableViewCell
-                cell.currentSelectionLabel.text = languageOptions[languageIndex]
+                cell.currentSelectionLabel.text = languageOptions[settings.languageOption]
 
             default:
-                print("placeholder")
+                print("Should never reach here")
 
         }
         
@@ -105,10 +118,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func tappedOnTableView(_ sender: Any) {
         languagePickerView.isHidden = true
         tapRecognizer.isEnabled = false
+        Storage.save(key: "settings", value: settings)
         tableView.reloadData()
     }
 
     
+    @IBAction func stepperValueDidChange(_ sender: Any) {
+        let stepper = sender as! UIStepper
+        settings.maxNumToSplit = Int(stepper.value)
+        Storage.save(key: "settings", value: settings)
+        tableView.reloadData()
+    }
     
 
     

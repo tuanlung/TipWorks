@@ -400,6 +400,7 @@ extension CalculatorViewController {
     func unsubscribeToKeyboardEvents() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
     }
+    
 }
 
 enum Direction {
