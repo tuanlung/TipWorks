@@ -28,7 +28,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
     var tipPercViewHeight: CGFloat = 40.0
-    var doneButtonWidth: CGFloat = 60.0
+    var doneButtonWidth: CGFloat = 65.0
     var horizontalSpaceBetweenDoneAndPercOptions: CGFloat = 10.0
     var verticalSpaceBetweenPercOptions: CGFloat = 5.0
     var billTextFieldHeightRaito: CGFloat = 0.5
@@ -379,6 +379,8 @@ extension CalculatorViewController {
         
         doneButton.frame = CGRect(x: tipPercView.frame.width - doneButtonWidth - horizontalSpaceBetweenDoneAndPercOptions, y: verticalSpaceBetweenPercOptions, width: doneButtonWidth, height: tipPercView.frame.height - 2 * verticalSpaceBetweenPercOptions)
         
+        doneButton.layer.cornerRadius = 5.0
+        //doneButton.layer.borderWidth = 1.0
     }
     
     func initializeTipPercSegControlFrame() {
