@@ -10,6 +10,7 @@ import UIKit
 
 class CalculatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
+    // MARK: IBOutlets
     @IBOutlet weak var numbersView: UIView!
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet weak var splitTableView: UITableView!
@@ -24,7 +25,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var totalValueLabel: UILabel!
     
     
-    // MARK: Location related variables
+    // MARK: Location Related Variables
     var keyboardMinY: CGFloat = 0.0
     var navigationBarMaxY: CGFloat = 0.0
     var tipPercViewHeight: CGFloat = 40.0
@@ -35,7 +36,8 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     var tipViewHeightRatio: CGFloat = 0.25
     var totalViewHeightRatio: CGFloat = 0.25
     
-    // MARK: other variables
+    
+    // MARK: Other Variables
     var settings = SettingsData()
     var tipPercOptionsMapping: [Double] {
         get {
@@ -48,18 +50,18 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    // MARK: Life cycle
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // make everything hidden and change their position after view appears,
         // and then make them visible.
         hideAllObjects()
-        
         subscribeToKeyboardEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         
         if let settings = Storage.load(key: "settings") as? SettingsData {
@@ -78,73 +80,7 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    // MARK: table view delegate functions
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.maxNumToSplit - 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
-        
-        let numToSplit = indexPath.row + 2
-        let firstHalf = translate("Party of")
-        let secondHalf = translate(", each pays about")
-        let title = firstHalf + " \(numToSplit)" + secondHalf + ": "
-        
-        let totalStr: String = totalValueLabel.text!.replacingOccurrences(of: "$", with: "")
-        let total = Double(totalStr)!
-        let share = String.init(format: "$%.2f", total/Double(numToSplit))
-        
-        cell.textLabel!.text = title
-        cell.detailTextLabel!.text = share
-        return cell
-    }
-    
-    // MARK: textField delegate functions
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.text = "$"
-        updateNumbers()
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if string == "0" && textField.text == "$0" {
-            return false
-        }
-        
-        if string == "." && textField.text!.contains(".") {
-            return false
-        }
-        
-        if string == "" && textField.text == "$" {
-            return false
-        }
-
-        // Nothing is less than a penny, we only take at most two digits after decimal point
-        if string != "" && digitsAfterDecimalPoint(textField.text!) >= 2 {
-            return false
-        }
-        
-        var numberStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        if numberStr == "$" {
-            numberStr = "0"
-        } else {
-            numberStr = numberStr.replacingOccurrences(of: "$", with: "")
-        }
-        
-        updateNumbers(numberStr)
-        
-        if textField.text == "$0" {
-            textField.text = ("$" + numberStr).replacingOccurrences(of: "$0", with: "$")
-            return false
-        }
-        
-        return true
-    }
-    
+    // MARK: Core Calculation
     func updateNumbers() {
         let billNumberStr = billTextField.text!.replacingOccurrences(of: "$", with: "")
         updateNumbers(billNumberStr)
@@ -169,7 +105,6 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         splitTableView.reloadData()
     }
     
-    
     func digitsAfterDecimalPoint(_ numberStr: String) -> Int {
         var numOfDigits = 0
         var foundDecimalPoint = false
@@ -182,40 +117,9 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return numOfDigits
     }
-    
-    
-    func hideAllObjects() {
-        numbersView.isHidden = true
-        doneButton.isHidden = true
-        billTextField.isHidden = true
-        splitTableView.isHidden = true
-        tipPercSegControl.isHidden = true
-        tipPercView.isHidden = true
-        tipView.isHidden = true
-        totalView.isHidden = true
-    }
-    
-    func initializePositionOfAllViews() {
-        initializeSplitTableViewFrame()
-        initializeTipPercViewFrame()
-        initializeNumberViewFrame()
-    }
-    
-    // MARK: call back functions
-    func keyboardDidShow(_ notification: NSNotification) {
-        
-        keyboardMinY = view.frame.height - (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
-        
-        // Unsubscribe once we got keyboard position
-        unsubscribeToKeyboardEvents()
-        
-        // View Positions are depending on keyboard positons, that's why they are here
-        initializePositionFactors()
-        initializePositionOfAllViews()
-    }
+
     
     // MARK: IBActions
-    
     @IBAction func billValueChanged(_ sender: Any) {
         adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
     }
@@ -226,7 +130,6 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
             adjustPositionsOfViewsAfterBillValueDidChange(animated: true)
         }
     }
-    
     
     @IBAction func tipPercSegControlValueDidChange(_ sender: Any) {
         if billTextField.text != "$" {
@@ -245,7 +148,80 @@ class CalculatorViewController: UIViewController, UITableViewDelegate, UITableVi
 
 extension CalculatorViewController {
     
-    // MARK: View positions adjustment helpers
+    // MARK: Table View Delegate Functions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.maxNumToSplit - 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "splitTableViewCell")!
+        
+        let numToSplit = indexPath.row + 2
+        let firstHalf = translate("Party of")
+        let secondHalf = translate(", each pays about")
+        let title = firstHalf + " \(numToSplit)" + secondHalf + ": "
+        
+        let totalStr: String = totalValueLabel.text!.replacingOccurrences(of: "$", with: "")
+        let total = Double(totalStr)!
+        let share = String.init(format: "$%.2f", total/Double(numToSplit))
+        
+        cell.textLabel!.text = title
+        cell.detailTextLabel!.text = share
+        return cell
+    }
+    
+    
+    // MARK: TextField Delegate Functions
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.text = "$"
+        updateNumbers()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "0" && textField.text == "$0" {
+            return false
+        }
+        
+        if string == "." && textField.text!.contains(".") {
+            return false
+        }
+        
+        if string == "" && textField.text == "$" {
+            return false
+        }
+        
+        // Nothing is less than a penny, we only take at most two digits after decimal point
+        if string != "" && digitsAfterDecimalPoint(textField.text!) >= 2 {
+            return false
+        }
+        
+        var numberStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        if !numberStr.contains("$") {
+            return false
+        }
+        
+        if numberStr == "$" {
+            numberStr = "0"
+        } else {
+            numberStr = numberStr.replacingOccurrences(of: "$", with: "")
+        }
+        
+        updateNumbers(numberStr)
+        
+        if textField.text == "$0" {
+            textField.text = ("$" + numberStr).replacingOccurrences(of: "$0", with: "$")
+            return false
+        }
+        
+        return true
+    }
+    
+    
+    // MARK: View Positions Adjustment Helpers
     func adjustPositionsOfViewsAfterBillValueDidChange(animated: Bool) {
 
         moveTipPercSegControl(direction: .Left, animated: true)
@@ -313,8 +289,6 @@ extension CalculatorViewController {
         tipValueLabel.frame = CGRect(x: tipTitleLabel.frame.maxX + spaceInBetween, y: 0.0, width: tipView.frame.width - spaceToRight - tipTitleLabel.frame.maxX - spaceInBetween, height: tipView.frame.height)
     }
 
-    
-    
     func moveTipPercSegControl(direction: Direction, animated: Bool) {
         let animateDuration = 0.4
         let spaceOnLeft = (direction == .Left) ? (self.doneButton.frame.width + horizontalSpaceBetweenDoneAndPercOptions * 3.0) : (horizontalSpaceBetweenDoneAndPercOptions * 2.0)
@@ -330,8 +304,7 @@ extension CalculatorViewController {
     }
     
     
-    
-    // MARK: View positions initializers
+    // MARK: View Positions Initializers
     func initializePositionFactors() {
         navigationBarMaxY = navigationController!.navigationBar.frame.height
     }
@@ -373,14 +346,11 @@ extension CalculatorViewController {
         tipView.frame = CGRect(x: 0.0, y: numbersView.frame.maxY, width: numbersView.frame.width, height: 0.0)
     }
     
-    
-    
     func initializeDoneButtonFrame() {
         
         doneButton.frame = CGRect(x: tipPercView.frame.width - doneButtonWidth - horizontalSpaceBetweenDoneAndPercOptions, y: verticalSpaceBetweenPercOptions, width: doneButtonWidth, height: tipPercView.frame.height - 2 * verticalSpaceBetweenPercOptions)
         
         doneButton.layer.cornerRadius = 5.0
-        //doneButton.layer.borderWidth = 1.0
     }
     
     func initializeTipPercSegControlFrame() {
@@ -389,11 +359,7 @@ extension CalculatorViewController {
         tipPercSegControl.isHidden = false
     }
     
-    
-
-    
     func initializeBillTextFieldFrame(animated: Bool) {
-
         
         if animated {
             let animateDistance: CGFloat = 40.0
@@ -410,6 +376,25 @@ extension CalculatorViewController {
             billTextField.frame = CGRect(x: 0.0, y: 0.0, width: numbersView.frame.width, height: numbersView.frame.height)
             billTextField.isHidden = false
         }
+    }
+    
+    
+    // MARK: UI Related
+    func hideAllObjects() {
+        numbersView.isHidden = true
+        doneButton.isHidden = true
+        billTextField.isHidden = true
+        splitTableView.isHidden = true
+        tipPercSegControl.isHidden = true
+        tipPercView.isHidden = true
+        tipView.isHidden = true
+        totalView.isHidden = true
+    }
+    
+    func initializePositionOfAllViews() {
+        initializeSplitTableViewFrame()
+        initializeTipPercViewFrame()
+        initializeNumberViewFrame()
     }
     
     func customizeBySettings() {
@@ -437,6 +422,7 @@ extension CalculatorViewController {
         return Translator.translate(settings: settings, word: word)
     }
 
+    
     // MARK: Bill Text Value
     func billHasValue() -> Bool {
         if let text = billTextField.text {
@@ -447,7 +433,7 @@ extension CalculatorViewController {
     }
 
     
-    // MARK: Keyboard events functions
+    // MARK: Keyboard Events
     func subscribeToKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: .UIKeyboardDidShow , object: nil)
     }
@@ -456,8 +442,20 @@ extension CalculatorViewController {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidShow, object: nil)
     }
     
+    func keyboardDidShow(_ notification: NSNotification) {
+        
+        keyboardMinY = view.frame.height - (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+        
+        // Unsubscribe once we got keyboard position
+        unsubscribeToKeyboardEvents()
+        
+        // View Positions are depending on keyboard positons, that's why they are here
+        initializePositionFactors()
+        initializePositionOfAllViews()
+    }
     
     
+    // MARK: Save Records
     func saveToHistory() {
         let date = Date()
         let formatter = DateFormatter()

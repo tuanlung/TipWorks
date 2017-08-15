@@ -9,12 +9,15 @@
 import UIKit
 
 class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    
+    // MARK: IBOutlets
     @IBOutlet weak var defaultLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    
+    // MARK: Data Members
     // constructor takes care of the default settings. See SettingsData.swift
     var settings = SettingsData()
+    
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -31,7 +34,8 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         translateUserInterface()
     }
     
-    // MARK: table view delegate functions
+    
+    // MARK: Table View Delegate Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.tipOptions.count
     }
@@ -56,7 +60,8 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         return cell
     }
     
-    // MARK: text field delegate functions
+    
+    // MARK: Text Field Delegate Functions
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let numStr = textField.text, let num = Int(numStr) {
             settings.tipOptions[textField.tag] = num
@@ -65,6 +70,7 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
             textField.text = settings.tipOptions[textField.tag].description
         }
     }
+    
     
     // MARK: IBActions
     @IBAction func cancel(_ sender: Any) {
@@ -80,7 +86,6 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         
         navigationController?.popViewController(animated: true)
     }
-    
 
     @IBAction func userDidTap(_ sender: Any) {
         view.endEditing(true)
@@ -92,7 +97,8 @@ class TipPercentageOptionsViewController: UIViewController, UITableViewDelegate,
         tableView.reloadData()
     }
     
-    // MARK: translation
+    
+    // MARK: Translation
     func translateUserInterface() {
         navigationItem.leftBarButtonItem?.title = Translator.translate(settings: settings, word: "Cancel")
         navigationItem.title = Translator.translate(settings: settings, word: "Tip Options Setting")

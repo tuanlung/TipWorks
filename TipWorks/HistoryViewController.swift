@@ -10,12 +10,16 @@ import UIKit
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: IBOutlets
     @IBOutlet weak var dateTitleLabel: UILabel!
     @IBOutlet weak var paymentTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    
+    // MARK: Data Members
     var history = HistoryData()
     var settings = SettingsData()
+    
     
     // MARK: Life cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +35,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         translateUserInterface()
     }
+    
     
     // MARK: table view delegate functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,13 +57,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    // MARK: translation
+    
+    // MARK: Translation
     func translateUserInterface() {
         navigationItem.title = Translator.translate(settings: settings, word: "History")
         navigationItem.rightBarButtonItem?.title = Translator.translate(settings: settings, word: "Clear")
         dateTitleLabel.text = Translator.translate(settings: settings, word: "Date")
         paymentTitleLabel.text = Translator.translate(settings: settings, word: "Payment")
     }
+    
     
     // MARK: IBActions
     @IBAction func tapOnClearButton(_ sender: Any) {

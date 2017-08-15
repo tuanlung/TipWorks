@@ -10,17 +10,17 @@ import UIKit
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
+    // MARK: IBOutlets
     @IBOutlet weak var languagePickerView: UIPickerView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
 
+    // MARK: Data Members
     // constructor takes care of the default settings. See SettingsData.swift
     var settings = SettingsData()
-
-    
     let tableViewCellIdentifiers = ["tipPercTableViewCell", "maxNumberToSplitTableViewCell", "languageTableViewCell"]
     
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,11 +40,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
     
-    // MARK: picker view delegate functions
+    
+    // MARK: Picker View Delegate Functions
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Translator.languageOptions.count
     }
-    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Translator.languageOptions[row]
@@ -58,7 +58,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         settings.languageOption = row
     }
     
-    // MARK: table view delegate functions
+    
+    // MARK: Table View Delegate Functions
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         let identifier = tableViewCellIdentifiers[indexPath.row]
@@ -126,7 +127,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         Storage.save(key: "settings", value: settings)
         tableView.reloadData()
     }
-
     
     @IBAction func stepperValueDidChange(_ sender: Any) {
         let stepper = sender as! UIStepper
@@ -135,7 +135,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
     
-    // MARK: translation
+    
+    // MARK: Translation
     func translateUserInterface() {
         navigationItem.title = Translator.translate(settings: settings, word: "Settings")
     }

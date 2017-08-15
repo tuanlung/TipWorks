@@ -9,7 +9,6 @@
 import UIKit
 
 class tipPercTableViewCell: UITableViewCell {
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var currentSelectionLabel: UILabel!
 }

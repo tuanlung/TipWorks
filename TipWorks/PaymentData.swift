@@ -12,9 +12,7 @@ class PaymentData: NSObject, NSCoding {
     var date: String = ""
     var total: Double = 0.0
     var percentage: Int = 0
-    
-    //override init() {}
-    
+        
     init(date: String, total: Double, percentage: Int) {
         self.date = date
         self.total = total

@@ -9,7 +9,6 @@
 import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
-    
     @IBOutlet weak var paymentLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 }
